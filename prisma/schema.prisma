@@ -1,8 +1,9 @@
 // "npx prisma studio"
 // "npx prisma format"
+// "npx prisma generate" (to update packages for prismaFunctions if schema.prisma was changed)
 
 // "npx prisma db pull"
-// "npx prisma db push"
+// "npx prisma db push" (to update database provider if schema.prisma was changed)
 
 generator client {
   provider = "prisma-client-js"

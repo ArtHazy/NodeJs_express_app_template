@@ -3,11 +3,11 @@
 
 // to add prisma database manager make sure:
 // it's installed "npm instal prisma"
-// prisma project was initialized "npx prisma init"
-// prisma packages were generated after editing "schema.prisma" file with "npx prisma generate" command
-// (if you make changes to the schema.prisma, run "npx prisma generate" again to reflect those changes)
+// prisma project was initialized "npx prisma init" (exists already)
 // database provider is online
 // .env file exists and contains DATABASE_URL="postgresql://johndoe:password@localhost:5432/databaseName?schema=public" with the correct data ("password" can be empty)
+// prisma packages and database provider are updated after changing schema.prisma file ("npx prisma generate", "npx prisma db push")
+//
 
 
 // use "node app.mjs" to run the app
