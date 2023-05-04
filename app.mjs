@@ -10,7 +10,7 @@
 // .env file exists and contains DATABASE_URL="postgresql://johndoe:password@localhost:5432/databaseName?schema=public" with the correct data ("password" can be empty)
 
 
-// use "node app/app.mjs" to run the app
+// use "node app.mjs" to run the app
 
 /////////////////////////
 // ESSENTIALS
