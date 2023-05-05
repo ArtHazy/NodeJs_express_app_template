@@ -47,3 +47,8 @@ const sendJson = async (req, res, data) => { // ! don't use JSON.stringify on "d
 /////////////////////////
 // OPTIONAL
 
+// import {
+// ...
+// } from "../prisma/prismaFunctions.js";
+
+app.get('/test.html', (req, res) => sendFile(req, res, 'test.html'));

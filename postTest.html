@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>postTest</title>
+</head>
+<body>
+    test html
+
+    <script>
+
+        // uses url to send data
+        async function createItem(url, data, successMessage) {
+            try {
+                const result = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+                console.log(await result.json());
+                alert(successMessage);
+            } catch (err) {
+                console.error(err);
+                alert(`Error creating item: ${err.message}`);
+            }
+        }
+
+        // EXAMPLE
+        //
+        // async function createUser() {
+        //     const name = document.getElementById("userName").value;
+        //     const email = document.getElementById("email").value;
+        //     const password = document.getElementById("password").value;
+        //     await createItem('/createUser', {name, email, password}, 'User was created');
+        // }
+
+        async function deleteItemByID(url, itemId, successMessage) {
+            try {
+                const result = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        itemId,
+                    }),
+                });
+                const json = await result.json();
+
+                if (result.ok) {
+                    console.log(json);
+                    alert(successMessage);
+                } else {
+                    throw new Error(json.message || 'Unknown error');
+                }
+            } catch (err) {
+                console.error(err);
+                alert(`Error deleting item: ${err.message}`);
+            }
+        }
+
+        // EXAMPLE
+        //
+        // async function deleteUser() {
+        //     const userId = document.getElementById("userId").value;
+        //     await deleteItemByID('/deleteUser', userId, 'User was deleted');
+        // }
+
+
+
+        async function display(resource, list, fields) {
+            const response = await fetch(`/${resource}.json`); // requests app for json
+            const items = await response.json();
+            list.innerHTML = "";
+            items.forEach(item => {
+                const listItem = document.createElement("li");
+                const text = fields.map(field => `${field}: ${item[field]}`).join(", ");
+                listItem.textContent = text;
+                list.appendChild(listItem);
+            });
+        }
+
+        // EXAMPLE
+        //
+        // const userList = document.getElementById("userList");
+        //
+        // display("users", userList, ["id", "name", "email"]); // display data from users.json in userList html object
+
+
+    </script>
+</body>
+</html>
