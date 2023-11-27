@@ -1,42 +1,67 @@
-// import packages must be installed with "npm instal 'name' "
-// requested files must be located near this (app.mjs) file
-
-// to add prisma database manager make sure:
-// it's installed "npm instal prisma"
-// prisma project was initialized "npx prisma init" (exists already)
-// database provider is online
-// .env file exists and contains DATABASE_URL="postgresql://johndoe:password@localhost:5432/databaseName?schema=public" with the correct data ("password" can be empty)
-// prisma packages and database provider are updated after changing schema.prisma file ("npx prisma generate", "npx prisma db push")
-//
-
-
-// use "node app.mjs" to run the app
-
 /////////////////////////
 // ESSENTIALS
 
-import express from 'express'; // "npm install express" required
-import path from 'path'; // "npm install path" required
+import express from 'express'; 
+import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
 app.use(express.json());
 
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-// useful
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const sendJson = async (req, res, data) => { // ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(req,res,{id:2,name:"mom"}))
+/////////////////////////
+// USEFULL
+
+function logJsonSeachResult(jsonResult){
+  if (Array.isArray(jsonResult)) {
+    console.log("search result:");
+    console.log('[');
+    jsonResult.forEach((element) => {
+      console.log(`${JSON.stringify(element)},`);
+    });
+    console.log(']');
+  } else {
+    console.log(`search result: ${JSON.stringify(jsonResult)}`);
+  }  
+}
+function requestNotifier(req) {
+  console.log(`${req.method} request received for: ${req.originalUrl}`);
+  console.log(`request body: ${JSON.stringify(req.body)}`);
+}
+function respondJsonResult(res,jsonResult) {
+  logJsonSeachResult(jsonResult)
+  res.json(jsonResult)
+  console.log(`json responded\n`); 
+}
+
+
+async function sendJson(req,res,data){  // example: sendJson(req,res,{id:2,name:"mom"})
+  res.set('Content-Type', 'application/json');
+  res.json(data);
+}
+
+
+
+// useful (old)
+
+const sendJson = async (req, res, data) => { // ! old ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(req,res,{id:2,name:"mom"}))
     res.set('Content-Type', 'application/json');
     res.json(data);
 };
 
+// test
 
+app.get('/getTest.html', (req, res) => {
+  console.log(`GET request received for: ${req.originalUrl}`);
+  res.sendFile(path.join(__dirname, 'getTest.html'));
+});
+
+sendJson
 
 /////////////////////////
 // OPTIONAL
@@ -45,7 +70,3 @@ const sendJson = async (req, res, data) => { // ! don't use JSON.stringify on "d
 // ...
 // } from "../prisma/prismaFunctions.js";
 
-app.get('/getTest.html', (req, res) => {
-  console.log(`GET request received for: ${req.originalUrl}`);
-  res.sendFile(path.join(__dirname, 'getTest.html'));
-});

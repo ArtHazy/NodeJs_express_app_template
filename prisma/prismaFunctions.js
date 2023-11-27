@@ -1,9 +1,10 @@
 /////////////////////////
 // ESSENTIALS
 
+/*  uncomment after "npx prisma generate" console command
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-
+*/
 
 
 /////////////////////////
