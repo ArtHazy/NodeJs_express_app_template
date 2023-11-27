@@ -49,10 +49,10 @@ async function sendJson(req,res,data){  // example: sendJson(req,res,{id:2,name:
 
 // useful (old)
 
-const sendJson = async (req, res, data) => { // ! old ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(req,res,{id:2,name:"mom"}))
-    res.set('Content-Type', 'application/json');
-    res.json(data);
-};
+// const sendJson = async (req, res, data) => { // ! old ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(req,res,{id:2,name:"mom"}))
+//     res.set('Content-Type', 'application/json');
+//     res.json(data);
+// };
 
 // test
 
