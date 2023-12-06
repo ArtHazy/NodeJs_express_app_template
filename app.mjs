@@ -40,16 +40,30 @@ function respondJsonResult(res,jsonResult) {
 }
 
 
-async function sendJson(req,res,data){  // example: sendJson(req,res,{id:2,name:"mom"})
+async function sendJson(res,data){  // example: sendJson(res,{id:2,name:"mom"})
   res.set('Content-Type', 'application/json');
   res.json(data);
 }
 
+function checkReqBodyToContain(req, res, ...requiredProperties) { // example: if (checkReqBodyToContain(req, res, 'name', 'email', 'password'))
+  const missingProperties = [];
+  for (const prop of requiredProperties) {
+    if (!(prop in req.body)) {
+      missingProperties.push(prop);
+    }
+  }
+  if (missingProperties.length > 0) {
+    console.error(`Missing required properties in req.body: ${missingProperties.join(', ')}`);
+    sendJson(res,{errorMessage: `Missing required properties in req.body: ${missingProperties.join(', ')}`})
+    return false;
+  }
+  return true;
+}
 
 
 // useful (old)
 
-// const sendJson = async (req, res, data) => { // ! old ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(req,res,{id:2,name:"mom"}))
+// const sendJson = async (req, res, data) => { // ! old ! don't use JSON.stringify on "data"  // example: app.get('/json', (req, res) => sendJson(res,{id:2,name:"mom"}))
 //     res.set('Content-Type', 'application/json');
 //     res.json(data);
 // };
