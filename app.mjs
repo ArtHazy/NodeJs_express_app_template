@@ -53,7 +53,7 @@ function checkReqBodyToContain(req, res, ...requiredProperties) { // example: if
     }
   }
   if (missingProperties.length > 0) {
-    console.error(`Missing required properties in req.body: ${missingProperties.join(', ')}`);
+    //console.error(`Missing required properties in req.body: ${missingProperties.join(', ')}`);
     sendJson(res,{errorMessage: `Missing required properties in req.body: ${missingProperties.join(', ')}`})
     return false;
   }
